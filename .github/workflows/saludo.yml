@@ -1,0 +1,11 @@
+name: Saludo
+
+on:
+  push:
+
+jobs:
+  saludar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Decir hola
+        run: echo "Hola desde GitHub Actions"
