@@ -1,0 +1,29 @@
+name: Pruebas
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  pruebas:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Descargar el proyecto
+        uses: actions/checkout@v4
+
+      - name: Prueba 1 - existe menu.md
+        run: test -f menu.md
+
+      - name: Prueba 2 - menu.md no está vacío
+        run: test -s menu.md
+
+      - name: Prueba 3 - tiene título
+        run: grep -q "^# " menu.md
+
+      - name: Prueba 4 - sin marcas de conflicto
+        run: |
+          if grep -nE "^(<<<<<<<|=======|>>>>>>>)" menu.md; then
+            echo "ERROR: quedaron marcas de conflicto en menu.md"
+            exit 1
+          fi
